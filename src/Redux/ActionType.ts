@@ -9,7 +9,10 @@ enum ActionType {
     HOME_CHANGE,
 
     LOGIN_CHANGE,
-    LOGIN_CLEAR
+    LOGIN_CLEAR,
+
+    NEW_CHANGE,
+    NEW_CLEAR
 
 }
 

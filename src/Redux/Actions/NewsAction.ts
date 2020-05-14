@@ -11,28 +11,89 @@ class NewsAction {
     }
 
     init = () => async (dispatch: any) => {
-        try{
-            // Set the loader on
-            dispatch(loaderAction.showLoading());
-            // do something...
-            const result = await this.service.getSomething("John Doe");
-            // Send resulting state
+        try {
+            
+        } catch(error){
+            
+        } finally {
+
+        }
+    }
+
+    searchNews = () => (dispatch:any, getState: any) => {
+
+    }
+
+    searchNewsById = (id: string) => async (dispatch: any) => {
+        try {
+            let news = await this.service.getNewsById(id);
+            let payload = {...news};
+            payload.publishDate = new Date(payload.publishDate);
             dispatch({
-                type: ActionType.HOME_INIT,
+                type: ActionType.NEW_CHANGE,
                 payload: {
-                   ...result
+                    ...payload,
+                    id: id
                 }
             });
 
-            // Turn off the loader
-            dispatch(loaderAction.hideLoading());
-            
-        }catch(error){
-            if(Array.isArray(error)){
-                return;
-            }
+        } catch (ex) {
+            console.log(ex);
+        } finally {
+
         }
-    };
+    }
+
+    onSaveNews = (values: any) => async (dispatch: any, getState: any) => {
+        try {
+
+            let data = {
+                title: values.title,
+                shortDescription: values.shortDescription,
+                publishDate: values.publishDate,
+                image: values.image
+            }
+    
+            await this.service.createNews(data);
+
+        } catch (ex) {
+            console.log(ex);
+        } finally {
+
+        }
+    }
+
+    onUpdateNews = (id: string, values: any) => async (dispatch: any, getState: any) => {
+        try {
+
+            let data = {
+                title: values.title,
+                shortDescription: values.shortDescription,
+                publishDate: values.publishDate,
+                image: values.image
+            }
+
+            await this.service.updateNews(id, data);
+
+        } catch (ex) {
+
+        } finally {
+
+        }
+    }
+
+    onDeleteNews = (id: string) => async (dispatch: any) => {
+        try {
+
+            await this.service.deleteNews(id);
+
+        } catch (ex) {
+
+        } finally {
+
+        }
+    }
+
 }
 
 export default new NewsAction(newsService);
