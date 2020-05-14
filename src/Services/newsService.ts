@@ -4,24 +4,22 @@ import env from '../Utils/env';
 
 class newsService {
 
-    //TODO: Implement this
-    async getSomething(data: string): Promise<any> {
-        try{
-            
-            const result: any = {
-                greeting: "Hello " + data
-            };
+    async getNews(publishDate: Date, direction: string = "asc"): Promise<any> {
+        try {
 
-            let url = `${env.REACT_APP_API_ENDPOINT}/news/af0266c8-92aa-11ea-bd4a-ae5cc4c27d2e`
+            let url = `${env.REACT_APP_API_ENDPOINT}/news/?publishDate=${publishDate}&direction=${direction}`;
+            let response = await axios.get(url);
+            if (response.status !== 200) {
+                throw "Can not get news. Please contact administrator";
+            }
 
-            let x = await axios.get(url);
+            let data = response.data.data;
+            return data;
 
-            console.log("Response: ", x);
+        } catch (ex) {
+            console.log(ex);
+        } finally {
 
-            return result;
-
-        } catch(error) {
-            throw error;
         }
     }
 

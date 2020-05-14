@@ -1,6 +1,7 @@
 import ActionType from '../ActionType';
 import newsService from '../../Services/newsService';
 import loaderAction from './LoaderAction';
+import moment from 'moment';
 
 class NewsAction {
 
@@ -13,15 +14,40 @@ class NewsAction {
     init = () => async (dispatch: any) => {
         try {
             
-        } catch(error){
-            
+        } catch(ex) {
+            console.log(ex);
         } finally {
 
         }
     }
+    
+    searchNews = async (publishDate) => {
+        let news = await this.service.getNews(publishDate);
+        let payload = news.map(n => {
+            let result = {...n};
+            result.displayPublishDate = moment(result.publishDate).format("DD/MM/YYYY");
+            return result;
+        });
 
-    searchNews = () => (dispatch:any, getState: any) => {
+        return payload;
+    }
 
+    onSearchNews = (publishDate: Date) => async (dispatch:any, getState: any) => {
+        try {
+            let payload = await this.searchNews(publishDate);
+            dispatch({
+                type: ActionType.NEW_CHANGE,
+                payload: { 
+                    publishDate: publishDate,
+                    news: payload 
+                }
+            });
+
+        } catch (ex) {
+            console.log(ex);
+        } finally {
+
+        }
     }
 
     searchNewsById = (id: string) => async (dispatch: any) => {
@@ -76,19 +102,30 @@ class NewsAction {
             await this.service.updateNews(id, data);
 
         } catch (ex) {
-
+            console.log(ex);
         } finally {
 
         }
     }
 
-    onDeleteNews = (id: string) => async (dispatch: any) => {
+    onDeleteNews = (id: string) => async (dispatch: any, getState: any) => {
         try {
+            let { publishDate } = getState().newsState;
 
             await this.service.deleteNews(id);
 
-        } catch (ex) {
+            let payload = await this.searchNews(publishDate);
 
+            dispatch({
+                type: ActionType.NEW_CHANGE,
+                payload: { 
+                    publishDate: publishDate,
+                    news: payload 
+                }
+            });
+
+        } catch (ex) {
+            console.log(ex);
         } finally {
 
         }

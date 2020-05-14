@@ -14,7 +14,7 @@ const { store, persistor } = Store();
 const jsx = (
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-            <App store={store} />
+            <App />
         </PersistGate>
     </Provider>
 );

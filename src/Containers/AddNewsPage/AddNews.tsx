@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import newsAction from '../../Redux/Actions/NewsAction';
-import AddNewsComponent from '../../Components/News/AddNewsComponent';
-import Swal from 'sweetalert2'
+import AddNewsComponent from '../../Components/AddNews/AddNewsComponent';
+import Swal from 'sweetalert2';
 
 export class AddNews extends React.Component<any> {
 

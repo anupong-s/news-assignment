@@ -7,6 +7,7 @@ const initState = {
     shortDescription: "",
     publishDate: new Date(),
     image: "",
+    news: [],
     isExpand: false
 }
 
