@@ -2,6 +2,9 @@
 @import './Assets/fonts/styles.scss';
 @import './Assets/styles/color.scss';
 
+body, html {
+  height: 100%;
+}
 
 body {
   margin: 0;

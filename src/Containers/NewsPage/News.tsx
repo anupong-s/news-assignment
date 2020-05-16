@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { Button, Grid, Header } from 'semantic-ui-react';
 import newsAction from '../../Redux/Actions/NewsAction';
 import LoaderComponent from '../../Components/Loader/Loader';
 import ViewNewsComponent from '../../Components/ViewNews/ViewNewsComponent';
 import Swal from 'sweetalert2';
+import './News.scss';
 
 // const News: React.FC<any> = (props) => {
 export class News extends React.Component<any> {
@@ -14,6 +16,7 @@ export class News extends React.Component<any> {
     }
 
     async componentDidMount() {
+
         await this.props.onSearchNews(new Date());
         let newsComponent = this.props.news.map((n: any)=> {
             return (<ViewNewsComponent 
@@ -42,10 +45,29 @@ export class News extends React.Component<any> {
         this.setState({ newsComponent: newsComponent });
     }
 
-    render() {
+    onAddNews = () => {
+        this.props.history.push("/add-news");
+    }
 
-        let newsComponent = this.props.news.map((n: any)=> {
+    onSignOut = () => {
+        this.props.history.push("/logout");
+    }
+
+    renderNotPermission = () => {
+        return (
+            <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle'>
+                <Grid.Column style={{ maxWidth: 600 }}>
+                    <Header as='h2' textAlign='center'>You don't have permission</Header>
+                    <Button color='blue' size='medium' content="Login" onClick={()=> this.props.history.push("/")} />
+                </Grid.Column>
+            </Grid>
+        )
+    }
+
+    renderNews = () => {
+        let newsComponent = this.props.news.map((n: any, index: number)=> {
             return (<ViewNewsComponent 
+                key={index}
                 title={n.title} 
                 shortDescription={n.shortDescription}
                 displayPublishDate={n.displayPublishDate}
@@ -69,22 +91,41 @@ export class News extends React.Component<any> {
         });
 
         return (
-            <div id='news-page'>
+            <Grid>
+                <Grid.Row>
+                    <Grid.Column>
+                        <h1>News</h1>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <Button color='green' size='medium' content="Add news" onClick={this.onAddNews} />
+                        <Button color='blue' size='medium' content="Sign out" onClick={this.onSignOut} />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        { newsComponent }
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        )
+    }
+
+    render() {
+
+        return (
+            <div className='news-page-container'>
                 <LoaderComponent />
-                <h1>News</h1>
-                <div>
-                    <button>
-                        <Link to="/add-news">Add news</Link>
-                    </button>
-                </div>
-                { newsComponent }
+                { this.props.isAuthenticated && this.renderNews() }
+                { !this.props.isAuthenticated && this.renderNotPermission() }
             </div>
         )
     }
 }
 
 const mapStateToProps = (state: any, ownProps: any)  => ({
-    ...state.newsState
+    ...state.newsState, isAuthenticated: state.loginState.isAuthenticated
 });
 
 export default withRouter(connect(mapStateToProps, {...newsAction})(News));

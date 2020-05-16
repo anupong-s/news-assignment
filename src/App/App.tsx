@@ -22,7 +22,6 @@ const App: React.FC<any> = (props) => {
         <Route path="/logout" component={LogoutPage} />
       </Switch>
     </BrowserRouter>
-    <hr />
   </>);
 }
 
