@@ -1,13 +1,15 @@
 import axios from 'axios';
 // import ResponseDTO from '../DTOs/ResponseDTO';
 import env from '../Utils/env';
+import moment from 'moment';
 
 class newsService {
 
     async getNews(publishDate: Date, direction: string = "asc"): Promise<any> {
         try {
 
-            let url = `${env.REACT_APP_API_ENDPOINT}/news/?publishDate=${publishDate}&direction=${direction}`;
+            let newPublishDate = moment(publishDate).format('DD/MM/YYYY');
+            let url = `${env.REACT_APP_API_ENDPOINT}/news/?publishDate=${newPublishDate}&direction=${direction}`;
             let response = await axios.get(url);
             if (response.status !== 200) {
                 throw "Can not get news. Please contact administrator";

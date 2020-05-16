@@ -8,7 +8,8 @@ const initState = {
     publishDate: new Date(),
     image: "",
     news: [],
-    isExpand: false
+    isExpand: false,
+    sort: 'asc'
 }
 
 const reducer = (state = initState, action: IAction<any>) => {

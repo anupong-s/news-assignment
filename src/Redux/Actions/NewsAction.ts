@@ -24,8 +24,8 @@ class NewsAction {
         }
     }
     
-    searchNews = async (publishDate) => {
-        let news = await this.service.getNews(publishDate);
+    searchNews = async (publishDate, sort) => {
+        let news = await this.service.getNews(publishDate, sort);
         let payload = news.map(n => {
             let result = {...n};
             result.displayPublishDate = moment(result.publishDate).format("DD/MM/YYYY");
@@ -37,7 +37,9 @@ class NewsAction {
 
     onSearchNews = (publishDate: Date) => async (dispatch:any, getState: any) => {
         try {
-            let payload = await this.searchNews(publishDate);
+            let { sort } = getState().newsState;
+
+            let payload = await this.searchNews(publishDate, sort);
             dispatch({
                 type: ActionType.NEW_CHANGE,
                 payload: { 
@@ -113,11 +115,11 @@ class NewsAction {
 
     onDeleteNews = (id: string) => async (dispatch: any, getState: any) => {
         try {
-            let { publishDate } = getState().newsState;
+            let { publishDate, sort } = getState().newsState;
 
             await this.service.deleteNews(id);
 
-            let payload = await this.searchNews(publishDate);
+            let payload = await this.searchNews(publishDate, sort);
 
             dispatch({
                 type: ActionType.NEW_CHANGE,
@@ -131,6 +133,45 @@ class NewsAction {
             console.log(ex);
         } finally {
 
+        }
+    }
+
+    onPublishDateChanged = (publishDate: Date) => async (dispatch: any, getState: any) => {
+        try {
+            let { sort } = getState().newsState;
+
+            let payload = await this.searchNews(publishDate, sort);
+
+            dispatch({
+                type: ActionType.NEW_CHANGE,
+                payload: { 
+                    publishDate: publishDate,
+                    news: payload 
+                }
+            });
+
+
+        } catch (ex) {
+            console.log(ex);
+        }
+    }
+
+    onSorted = () => async (dispatch: any, getState: any) => {
+        try {
+
+            let { publishDate, sort } = getState().newsState;
+            let payload = await this.searchNews(publishDate, sort);
+            
+            dispatch({
+                type: ActionType.NEW_CHANGE,
+                payload: { 
+                    sort: sort === 'asc' ? 'desc': 'asc',
+                    news: payload
+                }
+            });
+
+        } catch (ex) {
+            console.log(ex);
         }
     }
 
