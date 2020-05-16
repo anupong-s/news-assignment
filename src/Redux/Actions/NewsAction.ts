@@ -160,12 +160,14 @@ class NewsAction {
         try {
 
             let { publishDate, sort } = getState().newsState;
-            let payload = await this.searchNews(publishDate, sort);
+
+            let newSort = sort === 'asc' ? 'desc': 'asc';
+            let payload = await this.searchNews(publishDate, newSort);
             
             dispatch({
                 type: ActionType.NEW_CHANGE,
                 payload: { 
-                    sort: sort === 'asc' ? 'desc': 'asc',
+                    sort: newSort,
                     news: payload
                 }
             });
