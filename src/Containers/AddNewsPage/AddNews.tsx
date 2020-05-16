@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import newsAction from '../../Redux/Actions/NewsAction';
 import AddNewsComponent from '../../Components/AddNews/AddNewsComponent';
+import { LoginPermission } from '../../Components/Login';
 import Swal from 'sweetalert2';
 
 export class AddNews extends React.Component<any> {
@@ -32,17 +33,25 @@ export class AddNews extends React.Component<any> {
         this.onShowDialog();
     }
 
+    renderNotPermission = () => {
+        return (
+            <LoginPermission history={this.props.history} />
+        )
+    }
+
     render() {
         return (
             <div id='news-page'>
-                <AddNewsComponent 
-                    id={this.props.id}
-                    title={this.props.title}
-                    shortDescription={this.props.shortDescription}
-                    publishDate={this.props.publishDate}
-                    image={this.props.image}
-                    onSubmit={this.onSubmit}
-                />
+                { !this.props.isAuthenticated && this.renderNotPermission() }
+                { this.props.isAuthenticated && <AddNewsComponent 
+                        id={this.props.id}
+                        title={this.props.title}
+                        shortDescription={this.props.shortDescription}
+                        publishDate={this.props.publishDate}
+                        image={this.props.image}
+                        onSubmit={this.onSubmit}
+                    />
+                }
             </div>
         )
     }
@@ -50,7 +59,7 @@ export class AddNews extends React.Component<any> {
 };
 
 const mapStateToProps = (state: any, ownProps: any)  => ({
-    ...state.newsState
+    ...state.newsState, isAuthenticated: state.loginState.isAuthenticated
 });
 
 export default withRouter(connect(mapStateToProps, {...newsAction})(AddNews));

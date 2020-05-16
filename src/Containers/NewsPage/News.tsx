@@ -5,6 +5,7 @@ import { Button, Grid, Header } from 'semantic-ui-react';
 import newsAction from '../../Redux/Actions/NewsAction';
 import LoaderComponent from '../../Components/Loader/Loader';
 import ViewNewsComponent from '../../Components/ViewNews/ViewNewsComponent';
+import { LoginPermission } from '../../Components/Login';
 import Swal from 'sweetalert2';
 import './News.scss';
 
@@ -55,12 +56,7 @@ export class News extends React.Component<any> {
 
     renderNotPermission = () => {
         return (
-            <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 600 }}>
-                    <Header as='h2' textAlign='center'>You don't have permission</Header>
-                    <Button color='blue' size='medium' content="Login" onClick={()=> this.props.history.push("/")} />
-                </Grid.Column>
-            </Grid>
+            <LoginPermission history={this.props.history} />
         )
     }
 

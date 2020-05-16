@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid, Header, Image } from 'semantic-ui-react'
+import React from 'react';
+import { Grid, Header, Image } from 'semantic-ui-react';
 import separateLine from "./../../../Assets/Images/separate_line.png";
 import './LoginHeader.scss';
 
