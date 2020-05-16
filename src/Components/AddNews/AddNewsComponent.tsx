@@ -40,7 +40,7 @@ export class AddNewsComponent extends React.Component<any> {
                 return "";
             }
         }
-        console.log(file);
+
         let imageBase64 = await this.toBase64(file);
         setFieldValue("image", imageBase64);
         return imageBase64;

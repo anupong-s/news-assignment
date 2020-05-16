@@ -1,5 +1,5 @@
-import React from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import React from 'react';
+import { Form, Button } from 'semantic-ui-react';
 import './LoginForm.scss';
 
 export const LoginForm: React.FC<any> = (props) => {
