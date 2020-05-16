@@ -7,8 +7,8 @@ const axiosMiddleware = ({ getState }: any) => (next: (arg0: any) => any) => asy
 ) => {
     try {
         if (typeof action === 'function') {
-            const authToken = getState().authState;
-            let jwtAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDUyZGNjOC05MzliLTExZWEtODEzNy01YmQ1MWEwMmJkYWMiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjIwNzQ3Mjg4OTA3LCJpYXQiOjE1ODkyMTEyODh9.8sYiN6anMsuCshp_UPmABYxcjOeQ7WDZBufmaB84xsw";
+            const loginState = getState().loginState;
+            let jwtAccessToken = loginState.jwt;
             axios.defaults.headers.common.Authorization = `${jwtAccessToken}`;
         }
 
