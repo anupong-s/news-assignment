@@ -5,7 +5,6 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import axiosMiddleware from '../Services/httpClient';
 
 import loaderReducer from './Reducers/LoaderReducer';
-import homeReducer from './Reducers/HomeReducer';
 import loginReducer from './Reducers/LoginReducer';
 import newsReducer from './Reducers/NewsReducer';
 
@@ -17,7 +16,6 @@ const persistConfig = {
 
 let rootReducer = combineReducers({
     loaderState: loaderReducer,
-    homeState: homeReducer,
     loginState: loginReducer,
     newsState: newsReducer
 });

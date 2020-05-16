@@ -4,10 +4,6 @@ enum ActionType {
     LOADING_INIT,
     LOADING_CHANGE,
 
-    // HOME
-    HOME_INIT,
-    HOME_CHANGE,
-
     LOGIN_CHANGE,
     LOGIN_CLEAR,
 
