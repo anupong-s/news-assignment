@@ -6,8 +6,8 @@ export const LoginForm: React.FC<any> = (props) => {
     return (
         <Form>
             <Form.Field>
-                <label className="lbl-text">Email</label>
-                <input placeholder='Enter your email' onChange={(e)=> props.onUsernameChanged(e.target.value)} />
+                <label className="lbl-text">Username</label>
+                <input placeholder='Enter your username' onChange={(e)=> props.onUsernameChanged(e.target.value)} />
             </Form.Field>
             <Form.Field>
                 <label className="lbl-text">Password</label>

@@ -2,13 +2,15 @@ import React from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import newsAction from '../../Redux/Actions/NewsAction';
-import AddNewsComponent from '../../Components/AddNews/AddNewsComponent';
+// import AddNewsComponent from '../../Components/AddNews/AddNewsComponent';
+import { AddNewsComponent } from '../../Components/News';
 import { LoginPermission } from '../../Components/Login';
 import Swal from 'sweetalert2';
 
 export class AddNews extends React.Component<any> {
 
     componentDidMount() {
+        this.props.init();
         const newId = this.props.match.params.id;
         if (newId) {
             this.props.searchNewsById(newId);

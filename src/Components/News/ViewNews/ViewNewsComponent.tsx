@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { Accordion, Icon, Button } from 'semantic-ui-react'
-import action from '../../Redux/Actions/LoaderAction';
-import DatePicker from "react-datepicker";
 import './ViewNewsComponent.scss';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -14,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // image
 // history
 
-const ViewNewsComponent: React.FC<any> = (props) => {
+export const ViewNewsComponent: React.FC<any> = (props) => {
 
     const [active, setActive] = useState(false);
 
@@ -27,7 +24,7 @@ const ViewNewsComponent: React.FC<any> = (props) => {
             <Accordion styled className="">
                 <Accordion.Title active={active} onClick={() => setActive(!active) }>
                 <Icon name='dropdown' />
-                {props.title} - {props.newId}
+                {props.title}
                 </Accordion.Title>
                 <Accordion.Content active={active}>
                     <p>
@@ -45,5 +42,3 @@ const ViewNewsComponent: React.FC<any> = (props) => {
     )
     
 }
-
-export default ViewNewsComponent

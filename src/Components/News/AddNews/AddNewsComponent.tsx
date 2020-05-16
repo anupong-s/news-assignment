@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Form, Grid } from "semantic-ui-react";
-import action from '../../Redux/Actions/LoaderAction';
 import DatePicker from "react-datepicker";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -191,4 +189,4 @@ export class AddNewsComponent extends React.Component<any> {
     }
 }
 
-export default AddNewsComponent
+// export default AddNewsComponent

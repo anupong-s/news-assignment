@@ -13,7 +13,10 @@ class NewsAction {
 
     init = () => async (dispatch: any) => {
         try {
-            
+            dispatch({
+                type: ActionType.NEW_CLEAR,
+                payload: {}
+            })
         } catch(ex) {
             console.log(ex);
         } finally {
